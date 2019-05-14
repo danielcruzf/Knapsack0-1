@@ -1,11 +1,11 @@
-#include "dp_knapsack.h"
+#include "dp_knapsack.hpp"
 
-std::unordered_map<double, int> dic;
+std::unordered_map<unsigned long, unsigned long> dic;
 
-double dpknapsack(int const W,
-                std::vector<int> const wt,
-                std::vector<double> const val,
-                int const n) {
+unsigned long dpknapsack(unsigned long const W,
+                std::vector<unsigned long> const wt,
+                std::vector<unsigned long> const val,
+                unsigned long const n) {
     // recursive implementation of 0-1 Knapsack Problem
     // Returns the maximum value that can be put in a
     // knapsack of capacity W 
@@ -15,8 +15,8 @@ double dpknapsack(int const W,
     } else if (wt[n-1] > W) {
         return dpknapsack(W, wt, val, n-1);
     } else {
-        double const a  = val[n-1] + dpknapsack(W-wt[n-1], wt, val, n-1);
-        double const b = dpknapsack(W, wt, val, n-1);
+        unsigned long const a  = val[n-1] + dpknapsack(W-wt[n-1], wt, val, n-1);
+        unsigned long const b = dpknapsack(W, wt, val, n-1);
 
         if (a > b) {
             dic[a] = n-1;
@@ -27,14 +27,14 @@ double dpknapsack(int const W,
     }
 }
 
-std::pair < double, std::vector<int> > resultknapsack(
-                                            int const W,
-                                            std::vector<int> const wt,
-                                            std::vector<double> const val) {
+std::pair < unsigned long, std::vector<unsigned long> > resultknapsack(
+                                            unsigned long const W,
+                                            std::vector<unsigned long> const wt,
+                                            std::vector<unsigned long> const val) {
     auto n = wt.size();
     auto best = dpknapsack(W, wt, val, n);
     //vector of items
-    std::vector<int> result;
+    std::vector<unsigned long> result;
     auto v = best;
     while (v > 0) {
         auto i = dic[v];
