@@ -1,5 +1,5 @@
-CXX = g++
-CXXFLAGS = -Ofast -O3 -std=c++1z
+CXX = clang++
+CXXFLAGS = -Ofast -march=native#-std=c++1z  -flto -funroll-loops -fopenmp
 
 output: main.o dp_knapsack.o getdata.o
 	${CXX} main.o dp_knapsack.o getdata.o -o output
